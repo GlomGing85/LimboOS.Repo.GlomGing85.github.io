@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
         
         :root {
             --blue-dark: #0a1f5c;
@@ -25,40 +25,43 @@
         }
         
         .limbo-watermark {
-            position: absolute;
-            top: 0;
+            position: fixed;
+            top: -15vh;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 130vh;
             pointer-events: none;
-            z-index: 1;
+            z-index: 0;
             overflow: hidden;
-            opacity: 0.12;
+            opacity: 0.1;
+        }
+        
+        .watermark-grid {
+            position: absolute;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 4em;
+            transform: rotate(-15deg);
         }
         
         .watermark-text {
-            position: absolute;
             font-family: 'Press Start 2P', monospace;
-            font-size: 3.8rem;
             font-weight: 900;
             color: #ffffff;
-            white-space: nowrap;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             user-select: none;
-            transform: rotate(-12deg);
-            opacity: 0.85;
+            overflow: hidden;
         }
         
-        .watermark-text:nth-child(1) { top: 8%; left: -8%; }
-        .watermark-text:nth-child(2) { top: 24%; left: 12%; }
-        .watermark-text:nth-child(3) { top: 42%; left: -5%; }
-        .watermark-text:nth-child(4) { top: 59%; left: 18%; }
-        .watermark-text:nth-child(5) { top: 76%; left: -12%; }
-        .watermark-text:nth-child(6) { top: 15%; right: -5%; }
-        .watermark-text:nth-child(7) { top: 38%; right: 8%; }
-        .watermark-text:nth-child(8) { top: 67%; right: -8%; }
-        
         .main-title {
-            font-size: 3.5rem;
             line-height: 1.05;
             text-shadow: 0 0 20px rgba(255,255,255,0.3),
                         4px 4px 0 #00000030;
@@ -96,25 +99,26 @@
             font-family: 'Press Start 2P', monospace;
         }
         
-        .os-badge {
-            background: linear-gradient(90deg, #22c7ff, #67e8f9);
-            -webkit-background-clip: text;
-            color: transparent;
-            font-weight: 700;
+        .warning {
+            background: rgba(239, 68, 68, 0.4); /* М'якший червоний */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
-<body class="text-white font-sans">
+<body class="text-white font-sans relative">
     <!-- Background Watermark Layer -->
     <div class="limbo-watermark" aria-hidden="true">
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
-        <div class="watermark-text text-7xl font-black">LimboOS</div>
+        <div class="watermark-grid">
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+            <div class="watermark-text text-3xl md:text-5xl lg:text-6xl">LimboOS</div>
+        </div>
     </div>
 
     <!-- Header / Navbar -->
@@ -138,44 +142,57 @@
                 </div>
                 
                 <div class="flex items-center gap-x-3">
-                    <a href="https://github.com/GlomGing85/LomboOS.Repo" target="_blank"
+                    <a href="https://github.com/GlomGing85/LomboOS.Repo" target="_blank" rel="noopener noreferrer"
                        class="flex items-center gap-x-2 px-4 py-2 text-sm rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 transition-all">
                         <i class="fab fa-github"></i>
                         <span class="hidden sm:inline">GitHub</span>
                     </a>
-                    <button onclick="window.location.href='#get-started'"
-                            class="px-5 py-2 text-sm font-semibold rounded-xl bg-white text-[#0a1f5c] hover:bg-cyan-200 transition-colors">
+                    <a href="#get-started"
+                       class="hidden sm:block px-5 py-2 text-sm font-semibold rounded-xl bg-white text-[#0a1f5c] hover:bg-cyan-200 transition-colors">
                         Download
+                    </a>
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-btn" class="md:hidden text-white text-xl p-2">
+                        <i class="fas fa-bars"></i>
                     </button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-black/40 backdrop-blur-lg border-t border-white/10">
+            <div class="flex flex-col px-6 py-4 gap-4 text-sm">
+                <a href="#about" class="nav-link text-white/90 hover:text-white">About</a>
+                <a href="#features" class="nav-link text-white/90 hover:text-white">Features</a>
+                <a href="#get-started" class="nav-link text-white/90 hover:text-white">Get Started</a>
+                <a href="#get-started" class="px-5 py-2 text-center text-sm font-semibold rounded-xl bg-white text-[#0a1f5c] hover:bg-cyan-200 transition-colors">Download</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <div class="relative z-10 pt-16 pb-20 px-6">
+    <div class="relative z-10 pt-12 md:pt-20 pb-16 md:pb-20 px-6">
         <div class="max-w-4xl mx-auto text-center">
-            <!-- Main Title matching the design -->
             <div class="mb-6">
-                <h1 class="main-title text-[4.2rem] sm:text-[5.5rem] font-black tracking-tighter leading-none pixel-font">
+                <h1 class="main-title text-[1.6rem] xs:text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-none pixel-font break-words">
                     LimboOS.<span class="text-cyan-300">Repo</span>
                 </h1>
             </div>
             
-            <p class="max-w-lg mx-auto text-xl text-white/80 mb-8">
-                Lightweight open-source operating system<br>
+            <p class="max-w-lg mx-auto text-base sm:text-xl text-white/80 mb-8">
+                Lightweight open-source operating system<br class="hidden sm:block">
                 for the <span class="font-medium text-white">Limbo PC Emulator</span>
             </p>
             
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button onclick="document.getElementById('get-started').scrollIntoView({ behavior: 'smooth' })" 
-                        class="limbo-btn flex items-center justify-center gap-x-3 px-8 py-4 bg-white text-[#0a1f5c] font-bold text-base rounded-2xl hover:bg-cyan-100">
+                <a href="#get-started" 
+                        class="limbo-btn w-full sm:w-auto flex items-center justify-center gap-x-3 px-8 py-4 bg-white text-[#0a1f5c] font-bold text-base rounded-2xl hover:bg-cyan-100">
                     <i class="fas fa-download mr-2"></i>
                     <span>Download .img</span>
-                </button>
+                </a>
                 
-                <a href="https://github.com/GlomGing85/LomboOS.Repo" target="_blank"
-                   class="limbo-btn flex items-center justify-center gap-x-3 px-8 py-4 border border-white/40 hover:bg-white/10 font-semibold text-base rounded-2xl transition-colors">
+                <a href="https://github.com/GlomGing85/LomboOS.Repo" target="_blank" rel="noopener noreferrer"
+                   class="limbo-btn w-full sm:w-auto flex items-center justify-center gap-x-3 px-8 py-4 border border-white/40 hover:bg-white/10 font-semibold text-base rounded-2xl transition-colors">
                     <i class="fab fa-github"></i>
                     <span>View on GitHub</span>
                 </a>
@@ -191,36 +208,36 @@
     </div>
 
     <!-- Stats -->
-    <div class="max-w-5xl mx-auto px-6 pb-12">
+    <div class="relative z-10 max-w-5xl mx-auto px-6 pb-12">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="section-card rounded-3xl p-5 text-center">
-                <div class="stat-number text-4xl font-bold text-white">2.1k</div>
+                <div class="stat-number text-2xl md:text-4xl font-bold text-white">0</div>
                 <div class="text-xs uppercase tracking-widest text-white/60 mt-1">Downloads</div>
             </div>
             <div class="section-card rounded-3xl p-5 text-center">
-                <div class="stat-number text-4xl font-bold text-white">180+</div>
+                <div class="stat-number text-2xl md:text-4xl font-bold text-white">1</div>
                 <div class="text-xs uppercase tracking-widest text-white/60 mt-1">Emulator Users</div>
             </div>
             <div class="section-card rounded-3xl p-5 text-center">
-                <div class="stat-number text-4xl font-bold text-white">14</div>
+                <div class="stat-number text-2xl md:text-4xl font-bold text-white">0</div>
                 <div class="text-xs uppercase tracking-widest text-white/60 mt-1">Apps Available</div>
             </div>
             <div class="section-card rounded-3xl p-5 text-center">
-                <div class="stat-number text-4xl font-bold text-white">100%</div>
+                <div class="stat-number text-2xl md:text-4xl font-bold text-white">100%</div>
                 <div class="text-xs uppercase tracking-widest text-white/60 mt-1">Open Source</div>
             </div>
         </div>
     </div>
 
     <!-- About Section -->
-    <div id="about" class="max-w-5xl mx-auto px-6 pb-16">
+    <div id="about" class="relative z-10 max-w-5xl mx-auto px-6 pb-16">
         <div class="grid md:grid-cols-12 gap-8 items-center">
             <div class="md:col-span-7">
                 <div class="inline-block px-4 py-1 rounded-full bg-white/10 text-xs font-medium mb-3 tracking-[1.5px]">WHAT IS LIMBOOS</div>
-                <h2 class="text-4xl font-bold tracking-tighter mb-4">A lightweight OS<br>for the Limbo Emulator</h2>
-                <p class="text-lg text-white/80 leading-relaxed">
-                    LimboOS is a minimal, fast and beautiful operating system built specifically to run inside the 
-                    <a href="https://github.com/limboemu/Limbo" target="_blank" class="underline hover:text-cyan-300">Limbo PC Emulator (x86)</a>.
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tighter mb-4">A lightweight OS<br>for the Limbo Emulator</h2>
+                <p class="text-base md:text-lg text-white/80 leading-relaxed">
+                    LimboOS is a minimal, fast and retro operating system built specifically to run inside the 
+                    <a href="https://github.com/limboemu/Limbo" target="_blank" rel="noopener noreferrer" class="underline hover:text-cyan-300">Limbo PC Emulator (x86)</a>.
                     Based on Alpine Linux with a custom graphical shell.
                 </p>
             </div>
@@ -247,9 +264,9 @@
     </div>
 
     <!-- Features -->
-    <div id="features" class="max-w-5xl mx-auto px-6 pb-20">
+    <div id="features" class="relative z-10 max-w-5xl mx-auto px-6 pb-20">
         <div class="mb-8">
-            <h2 class="text-center text-3xl font-bold tracking-tight">Built for simplicity</h2>
+            <h2 class="text-center text-2xl md:text-3xl font-bold tracking-tight">Built for simplicity</h2>
             <p class="text-center text-white/70 mt-1">Everything you need, nothing you don't.</p>
         </div>
         
@@ -281,20 +298,20 @@
     </div>
 
     <!-- Get Started -->
-    <div id="get-started" class="max-w-5xl mx-auto px-6 pb-16">
+    <div id="get-started" class="relative z-10 max-w-5xl mx-auto px-6 pb-16">
         <div class="section-card rounded-3xl p-8 md:p-10">
             <div class="md:flex items-center gap-x-10">
                 <div class="flex-1 mb-7 md:mb-0">
-                    <h2 class="text-4xl font-bold tracking-tighter mb-3">Ready to try it?</h2>
+                    <h2 class="text-3xl md:text-4xl font-bold tracking-tighter mb-3">Ready to try it?</h2>
                     <p class="text-white/70">Download the Live CD image and run it instantly inside Limbo Emulator.</p>
                     
                     <div class="mt-6 flex flex-wrap gap-3">
-                        <a href="#" class="inline-flex items-center gap-x-2 px-7 py-3.5 bg-white text-[#0a1f5c] font-semibold rounded-2xl limbo-btn">
+                        <a href="https://github.com/GlomGing85/LomboOS.Repo/releases" target="_blank" rel="noopener noreferrer" class="limbo-btn inline-flex items-center gap-x-2 px-7 py-3.5 bg-white text-[#0a1f5c] font-semibold rounded-2xl">
                             <i class="fas fa-download"></i>
                             <span>Download latest .img</span>
                         </a>
                         
-                        <a href="https://github.com/GlomGing85/LomboOS.Repo/releases" target="_blank" 
+                        <a href="https://github.com/GlomGing85/LomboOS.Repo/releases" target="_blank" rel="noopener noreferrer"
                            class="inline-flex items-center gap-x-2 px-7 py-3.5 border border-white/30 hover:bg-white/10 rounded-2xl text-sm font-medium">
                             <span>Releases</span>
                         </a>
@@ -315,40 +332,74 @@
                             <li class="flex gap-x-2"><span class="text-cyan-300/70 w-4">2.</span> Open Limbo Emulator</li>
                             <li class="flex gap-x-2"><span class="text-cyan-300/70 w-4">3.</span> Load the .img file</li>
                             <li class="flex gap-x-2"><span class="text-cyan-300/70 w-4">4.</span> Boot and enjoy!</li>
-                        </ol>
+                        </ol>     
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Warning -->
+    <div id="warning" class="relative z-10 max-w-5xl mx-auto px-6 pb-16">
+        <div class="warning rounded-3xl p-8 md:p-10">
+            <div class="flex items-center gap-x-4 mb-4">
+                <i class="fas fa-triangle-exclamation text-3xl md:text-4xl text-red-100"></i>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tighter">WARNING!!</h2>
+            </div>
+            
+            <div class="text-sm md:text-base text-white/90 leading-relaxed">
+                This OS is in the early stages of development, so <strong>there are no download links yet.</strong> (Everything written above is <strong>JUST COSMETIC!!</strong> Also this system was made for a fan and don't take it seriously...) (But there is one thing: "100% OpenSource" is true: you can modify <strong>ALL</strong> the code of this system and pass it off as your own)
+            </div>
+            <div class="mt-4 text-xs md:text-sm text-white/70 leading-relaxed">
+                Also, this system is written 80% by AI and I do not guarantee that this "System" will work on your device. (the other 20% are tools and Alpine Linux itself) 
+            </div>
+        </div>
+    </div>
+
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-9 text-center text-xs text-white/60">
+    <footer class="relative z-10 border-t border-white/10 py-9 text-center text-xs text-white/60">
         <div class="max-w-5xl mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-y-3">
                 <div>
                     LimboOS.Repo • Made by <span class="font-medium text-white/80">Arena.ai agent</span> + human
                 </div>
                 <div class="flex gap-x-6">
-                    <a href="https://github.com/GlomGing85/LomboOS.Repo" class="hover:text-white">GitHub</a>
-                    <a href="https://github.com/limboemu/Limbo" class="hover:text-white">Limbo Emulator</a>
+                    <a href="https://github.com/GlomGing85/LomboOS.Repo" target="_blank" rel="noopener noreferrer" class="hover:text-white">GitHub</a>
+                    <a href="https://github.com/limboemu/Limbo" target="_blank" rel="noopener noreferrer" class="hover:text-white">Limbo Emulator</a>
                     <a href="#features" class="hover:text-white">Features</a>
                 </div>
             </div>
             
             <div class="mt-5 text-[10px] text-white/40">
-                &copy; 2026 FlexTeam • Open Source under MIT License
+                &copy; <span id="current-year"></span> FlexTeam • Open Source under MIT License
             </div>
         </div>
     </footer>
 
     <script>
-        // Tailwind script
-        function initializeTailwind() {
-            document.documentElement.style.setProperty('--accent', '#67e8f9');
-        }
-        
-        // Optional: subtle parallax on watermark (for fun)
+        // Dynamic Year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // Subtle parallax on watermark
         window.addEventListener('scroll', () => {
             const watermark = document.querySelector('.limbo-watermark');
             if (watermark) {
